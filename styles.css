@@ -220,3 +220,14 @@ small.muted{color:var(--muted);font-size:12px}
 .hint{color:var(--muted);font-size:12px;line-height:1.4;margin:12px 0 0}
 .footer{color:var(--muted);text-align:center;padding-bottom:30px}
 .sticky{position:sticky; top:16px;}
+
+/* תמונת מוצר אמיתית (במקום BN) */
+.pImgReal{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  object-fit:cover;
+  display:block;
+  background:#fff;
+}
