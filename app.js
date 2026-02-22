@@ -11,13 +11,13 @@ const FEATURED_ID = "serum_multivit";
 
 // אם תוסיפי תמונות, שימי fileName כאן (למשל "serum.jpg") ותעלי את הקובץ לתיקייה
 const PRODUCTS = [
-  { id:"moisture_oily", name:"קרם לחות מאזן לעור שמן מעורב", price:150, desc:"לחות מאוזנת ללא כבדות, מתאים לעור שמן/מעורב.", image:null },
-  { id:"moisture_dry",  name:"קרם לחות מפיג מתחים לעור יבש",  price:150, desc:"לחות עשירה ומרגיעה לעור יבש ומיובש.", image:null },
-  { id:"serum_multivit",name:"סרום מולטי ויטמין",              price:180, desc:"סרום זוהר להזנה וחידוש מראה העור.", image:null },
-  { id:"spf",           name:"מקדם הגנה",                      price:125, desc:"הגנה יומיומית חיונית לשמירה על העור.", image:null },
-  { id:"eye_mask",      name:"מסכת עיניים אנטי אייג׳ינג",     price:180, desc:"מראה רענן סביב העיניים, מתאים לשגרה ביתית.", image:null },
-  { id:"acid_cleanser", name:"סבון חומצות לעור שמן מעורב",     price:125, desc:"ניקוי עמוק ועדין לעור שמן/מעורב.", image:null },
-  { id:"foam_cleanser", name:"סבון קצף לעור רגיל יבש",         price:110, desc:"ניקוי נעים שאינו מייבש, לעור רגיל/יבש.", image:null }
+  { id:"moisture_oily", name:"קרם לחות מאזן לעור שמן מעורב", price:150, desc:"לחות מאוזנת ללא כבדות, מתאים לעור שמן/מעורב.", image:"moisture_oily.jpg" },
+  { id:"moisture_dry",  name:"קרם לחות מפיג מתחים לעור יבש",  price:150, desc:"לחות עשירה ומרגיעה לעור יבש ומיובש.", image:"moisture_dry.jpg" },
+  { id:"serum_multivit",name:"סרום מולטי ויטמין",              price:180, desc:"סרום זוהר להזנה וחידוש מראה העור.", image:"serum_multivit.jpg" },
+  { id:"spf",           name:"מקדם הגנה",                      price:125, desc:"הגנה יומיומית חיונית לשמירה על העור.", image:"spf.jpg" },
+  { id:"eye_mask",      name:"מסכת עיניים אנטי אייג׳ינג",     price:180, desc:"מראה רענן סביב העיניים, מתאים לשגרה ביתית.", image:"eye_mask.jpg" },
+  { id:"acid_cleanser", name:"סבון חומצות לעור שמן מעורב",     price:125, desc:"ניקוי עמוק ועדין לעור שמן/מעורב.", image:"acid_cleanser.jpg" },
+  { id:"foam_cleanser", name:"סבון קצף לעור רגיל יבש",         price:110, desc:"ניקוי נעים שאינו מייבש, לעור רגיל/יבש.", image:"foam_cleanser.jpg" }
 ];
 
 const $ = (id) => document.getElementById(id);
