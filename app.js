@@ -52,14 +52,19 @@ function renderProducts(){
     const el = document.createElement("div");
     el.className = "p";
 
-    el.innerHTML = `
-      <div class="pTop">
-        <img src="${p.image}" class="pImgReal" alt="${p.name}">
-        <div style="flex:1">
-          <p class="pTitle">${p.name}${p.id === FEATURED_ID ? ' <span class="muted">• מומלץ</span>' : ''}</p>
-          <p class="pDesc">${p.desc}</p>
-        </div>
-      </div>
+   el.innerHTML = `
+  <img src="${p.image}" class="pImgReal" alt="${p.name}">
+  <div class="pLeft">
+    <p class="pTitle">${p.name}</p>
+    <p class="pDesc">${p.desc || ""}</p>
+  </div>
+  <div class="price">${formatILS(p.price)}</div>
+  <div class="qty">
+    <button type="button" data-act="dec" data-id="${p.id}">−</button>
+    <span>${qty}</span>
+    <button type="button" data-act="inc" data-id="${p.id}">+</button>
+  </div>
+`;
 
       <div class="pBottom">
         <div class="price">${formatILS(p.price)}</div>
