@@ -7,15 +7,17 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <main class="wrap">
+
+    <!-- לוגו גדול במקום טקסט -->
     <header class="hero">
-      <img class="logo" src="logo.png" alt="BarNis" onerror="this.style.display='none'">
-      <h1>BarNis Skin Clinic</h1>
-      <p class="lead">הזמנת מוצרים מקצועיים לאיסוף מהקליניקה • שליחה מהירה ב-WhatsApp</p>
-      <p class="note">אני מאשרת התאמה, זמינות ותשלום לאחר שליחת ההזמנה ✨</p>
+      <img class="mainLogo" src="logo.jpg" alt="BarNis Logo">
+      <p class="subtitle">הזמנת מוצרים מקצועיים לאיסוף מהקליניקה</p>
+      <p class="note">שלחי הזמנה ב-WhatsApp ואני אחזור אלייך לאישור התאמה ותשלום ✨</p>
     </header>
 
-    <!-- ✅ מוצרים קודם -->
+    <!-- מוצרים -->
     <section class="card">
       <div class="row">
         <h2>מוצרים</h2>
@@ -24,7 +26,7 @@
       <div id="products" class="products"></div>
     </section>
 
-    <!-- ✅ אחר כך פרטי הזמנה -->
+    <!-- פרטי הזמנה -->
     <section class="card">
       <h2>פרטי הזמנה</h2>
       <div class="form">
@@ -50,6 +52,7 @@
       </div>
     </section>
 
+    <!-- סיכום -->
     <section class="card">
       <h2>סיכום הזמנה</h2>
       <div id="cart" class="cart"></div>
@@ -61,12 +64,13 @@
 
       <button id="sendWA" class="btn" type="button">שליחת הזמנה ב-WhatsApp</button>
 
-      <p class="fineprint">האתר לא מבצע סליקה. לאחר שליחת ההזמנה תקבלי אישור ותשלום מול הקליניקה.</p>
+      <p class="fineprint">האתר אינו מבצע סליקה. לאחר שליחת ההזמנה תקבלי אישור ותשלום מול הקליניקה.</p>
     </section>
 
     <footer class="footer">
-      <small>© BarNis • הזמנה ב-WhatsApp</small>
+      <small>© BarNis Skin Clinic</small>
     </footer>
+
   </main>
 
   <script src="app.js"></script>
