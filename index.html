@@ -7,42 +7,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <main class="wrap">
+    <header class="hero">
+      <img class="logo" src="logo.png" alt="BarNis" onerror="this.style.display='none'">
+      <h1>BarNis Skin Clinic</h1>
+      <p class="lead">הזמנת מוצרים מקצועיים לאיסוף מהקליניקה • שליחה מהירה ב-WhatsApp</p>
+      <p class="note">אני מאשרת התאמה, זמינות ותשלום לאחר שליחת ההזמנה ✨</p>
+    </header>
 
-  <header class="wrap header">
-    <div class="topbar">
-      <div class="brand">
-        <img class="logo" src="logo.png" alt="BarNis" onerror="this.style.display='none'">
-        <div>
-          <h1>BarNis Skin Clinic</h1>
-          <p class="sub">הזמנת מוצרים מקצועיים • איסוף מהקליניקה</p>
-        </div>
-      </div>
-
-      <div class="trust">
-        <div class="pill">✅ התאמה מקצועית</div>
-        <div class="pill">✅ מוצרים קליניים</div>
-        <div class="pill">✅ איסוף מהיר</div>
-      </div>
-    </div>
-
-    <div class="banner">
-      <div>
-        <h2>הזמנה חכמה לעור שלך</h2>
-        <p>בחרי מוצרים, שלחי ב-WhatsApp, ואני אחזור אלייך לאישור התאמה, זמינות ותשלום.</p>
-      </div>
-
-      <div class="bannerCard">
-        <div class="miniTitle">מוצר מומלץ השבוע</div>
-        <div class="miniName" id="featuredName">סרום מולטי ויטמין</div>
-        <div class="miniMeta">זוהר • הזנה • חידוש</div>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap grid">
     <section class="card">
-      <h3 class="sectionTitle">פרטי הזמנה</h3>
-
+      <h2>פרטי הזמנה</h2>
       <div class="form">
         <label>
           שם מלא
@@ -60,60 +34,38 @@
         </label>
 
         <label>
-          קופון (אופציונלי)
-          <input id="coupon" type="text" placeholder="לדוגמה: WELCOME10" />
-          <small class="muted">אם הקופון תקין, ההנחה תתעדכן בסיכום.</small>
-        </label>
-
-        <label>
           הערות (אופציונלי)
-          <textarea id="notes" rows="3" placeholder="לדוגמה: עור רגיש/יובש/שומני, רגישות לבישום, להוסיף דוגמיות וכו׳"></textarea>
+          <textarea id="notes" rows="3" placeholder="סוג עור + מטרה (פיגמנטציה/אקנה/אנטי-אייג׳ינג), רגישויות וכו׳"></textarea>
         </label>
       </div>
     </section>
 
     <section class="card">
-      <div class="row between">
-        <h3 class="sectionTitle">מוצרים</h3>
+      <div class="row">
+        <h2>מוצרים</h2>
         <input id="search" class="search" type="search" placeholder="חיפוש מוצר…" />
       </div>
-
-      <div class="notice">
-        💡 טיפ: אם את לא בטוחה מה לבחור — תכתבי בהערות “סוג עור + מטרה” ואני אתאים לך סט מדויק.
-      </div>
-
       <div id="products" class="products"></div>
     </section>
 
-    <aside class="card sticky">
-      <div class="row between">
-        <h3 class="sectionTitle">סיכום הזמנה</h3>
-        <span class="badge" id="itemsBadge">0 פריטים</span>
-      </div>
-
+    <section class="card">
+      <h2>סיכום הזמנה</h2>
       <div id="cart" class="cart"></div>
 
-      <div class="summary">
-        <div class="sumRow"><span>ביניים</span><strong id="subtotal">₪0</strong></div>
-        <div class="sumRow"><span>הנחה</span><strong id="discount">₪0</strong></div>
-        <div class="sumRow total"><span>סה״כ לתשלום</span><strong id="total">₪0</strong></div>
+      <div class="totalRow">
+        <span>סה״כ:</span>
+        <strong id="total">₪0</strong>
       </div>
 
       <button id="sendWA" class="btn" type="button">שליחת הזמנה ב-WhatsApp</button>
 
-      <div id="thanks" class="thanks hidden">
-        ✅ ההודעה נפתחה ב-WhatsApp. אחרי השליחה — תקבלי אישור והנחיות תשלום.
-      </div>
+      <p class="fineprint">האתר לא מבצע סליקה. לאחר שליחת ההזמנה תקבלי אישור ותשלום מול הקליניקה.</p>
+    </section>
 
-      <p class="hint">
-        האתר לא מבצע סליקה. התשלום יוסדר מול הקליניקה לאחר אישור הזמנה.
-      </p>
-    </aside>
+    <footer class="footer">
+      <small>© BarNis • הזמנה ב-WhatsApp</small>
+    </footer>
   </main>
-
-  <footer class="wrap footer">
-    <small>© BarNis • הזמנה ב-WhatsApp • איסוף מהקליניקה</small>
-  </footer>
 
   <script src="app.js"></script>
 </body>
