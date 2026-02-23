@@ -1,7 +1,5 @@
 const WHATSAPP_NUMBER = "972542283054";
 
-const FEATURED_ID = "serum_multivit";
-
 const PRODUCTS = [
   { id:"moisture_oily", name:"קרם לחות מאזן לעור שמן מעורב", price:150, desc:"לחות מאוזנת ללא כבדות, מתאים לעור שמן/מעורב.", image:"moisture_oily.jpg" },
   { id:"moisture_dry",  name:"קרם לחות מפיג מתחים לעור יבש",  price:150, desc:"לחות עשירה ומרגיעה לעור יבש ומיובש.", image:"moisture_dry.jpg" },
@@ -16,11 +14,20 @@ const $ = (id) => document.getElementById(id);
 
 const state = {
   search: "",
-  cart: {}
+  cart: {} // { productId: qty }
 };
 
 function formatILS(n){
   return "₪" + n.toLocaleString("he-IL");
+}
+
+function getFilteredProducts(){
+  const q = (state.search || "").trim().toLowerCase();
+  if(!q) return PRODUCTS;
+  return PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    (p.desc || "").toLowerCase().includes(q)
+  );
 }
 
 function cartQty(id){
@@ -30,7 +37,8 @@ function cartQty(id){
 function setQty(id, qty){
   if(qty <= 0) delete state.cart[id];
   else state.cart[id] = qty;
-  renderAll();
+  renderProducts();
+  renderCart();
 }
 
 function subtotal(){
@@ -43,57 +51,62 @@ function subtotal(){
 }
 
 function renderProducts(){
-  const box = document.getElementById("products");
-  box.innerHTML = "";
+  const box = $("products");
+  if(!box) return;
 
-  PRODUCTS.forEach(p => {
+  box.innerHTML = "";
+  const list = getFilteredProducts();
+
+  list.forEach(p => {
     const qty = cartQty(p.id);
 
     const el = document.createElement("div");
     el.className = "p";
-
-   el.innerHTML = `
-  <img src="${p.image}" class="pImgReal" alt="${p.name}">
-  <div class="pLeft">
-    <p class="pTitle">${p.name}</p>
-    <p class="pDesc">${p.desc || ""}</p>
-  </div>
-  <div class="price">${formatILS(p.price)}</div>
-  <div class="qty">
-    <button type="button" data-act="dec" data-id="${p.id}">−</button>
-    <span>${qty}</span>
-    <button type="button" data-act="inc" data-id="${p.id}">+</button>
-  </div>
-`;
-
-      <div class="pBottom">
-        <div class="price">${formatILS(p.price)}</div>
-        <div class="qty">
-          <button onclick="setQty('${p.id}', ${qty-1})">−</button>
-          <span>${qty}</span>
-          <button onclick="setQty('${p.id}', ${qty+1})">+</button>
-        </div>
+    el.innerHTML = `
+      <img src="${p.image}" class="pImgReal" alt="${p.name}" onerror="this.style.display='none'">
+      <div class="pLeft">
+        <p class="pTitle">${p.name}</p>
+        <p class="pDesc">${p.desc || ""}</p>
+      </div>
+      <div class="price">${formatILS(p.price)}</div>
+      <div class="qty">
+        <button type="button" data-act="dec" data-id="${p.id}">−</button>
+        <span>${qty}</span>
+        <button type="button" data-act="inc" data-id="${p.id}">+</button>
       </div>
     `;
-
     box.appendChild(el);
   });
 
-  renderCart();
+  box.querySelectorAll("button[data-act]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-id");
+      const act = btn.getAttribute("data-act");
+      const current = cartQty(id);
+      if(act === "inc") setQty(id, current + 1);
+      if(act === "dec") setQty(id, current - 1);
+    });
+  });
 }
 
 function renderCart(){
-  const cartBox = document.getElementById("cart");
-  cartBox.innerHTML = "";
+  const cartBox = $("cart");
+  const totalEl = $("total");
+  if(!cartBox || !totalEl) return;
 
+  cartBox.innerHTML = "";
   const entries = Object.entries(state.cart);
 
   if(entries.length === 0){
-    cartBox.innerHTML = `<p class="muted">הסל ריק</p>`;
+    cartBox.innerHTML = `<p class="fineprint" style="margin:0">הסל ריק</p>`;
+    totalEl.textContent = formatILS(0);
+    return;
   }
 
   entries.forEach(([id, qty]) => {
     const p = PRODUCTS.find(x => x.id === id);
+    if(!p) return;
+
     const row = document.createElement("div");
     row.className = "cartItem";
     row.innerHTML = `
@@ -101,34 +114,78 @@ function renderCart(){
         <strong>${p.name}</strong><br>
         <small>${formatILS(p.price)} × ${qty}</small>
       </div>
-      <div><strong>${formatILS(p.price * qty)}</strong></div>
+      <div style="text-align:left">
+        <strong>${formatILS(p.price * qty)}</strong>
+      </div>
     `;
     cartBox.appendChild(row);
   });
 
-  document.getElementById("total").textContent = formatILS(subtotal());
+  totalEl.textContent = formatILS(subtotal());
 }
 
-function sendWA(){
-  if(Object.keys(state.cart).length === 0){
-    alert("הסל ריק");
-    return;
-  }
+function buildWhatsAppMessage(){
+  const name = ($("customerName")?.value || "").trim();
+  const phone = ($("customerPhone")?.value || "").trim();
+  const notes = ($("notes")?.value || "").trim();
 
-  let message = "היי BarNis 👋%0Aאני רוצה לבצע הזמנה:%0A%0A";
+  const lines = [];
+  lines.push("היי BarNis 👋");
+  lines.push("אני רוצה לבצע הזמנה (איסוף מהקליניקה – מודיעין):");
+  lines.push("");
 
+  if(name) lines.push(`שם: ${name}`);
+  if(phone) lines.push(`טלפון: ${phone}`);
+
+  lines.push("");
+  lines.push("מוצרים:");
   for(const [id, qty] of Object.entries(state.cart)){
     const p = PRODUCTS.find(x => x.id === id);
-    message += `• ${p.name} × ${qty} (%E2%82%AA${p.price * qty})%0A`;
+    if(!p) continue;
+    lines.push(`• ${p.name} × ${qty} (${formatILS(p.price * qty)})`);
   }
 
-  message += `%0Aסה״כ: %E2%82%AA${subtotal()}`;
+  lines.push("");
+  lines.push(`סה״כ: ${formatILS(subtotal())}`);
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
+  if(notes){
+    lines.push("");
+    lines.push(`הערות: ${notes}`);
+  }
+
+  lines.push("");
+  lines.push("תודה! 😊");
+
+  return lines.join("\n");
 }
 
-function renderAll(){
+function setupSearch(){
+  const s = $("search");
+  if(!s) return;
+  s.addEventListener("input", (e) => {
+    state.search = e.target.value || "";
+    renderProducts();
+  });
+}
+
+function setupSend(){
+  const btn = $("sendWA");
+  if(!btn) return;
+
+  btn.addEventListener("click", () => {
+    if(Object.keys(state.cart).length === 0){
+      alert("הסל ריק — הוסיפי לפחות מוצר אחד 🙂");
+      return;
+    }
+    const msg = buildWhatsAppMessage();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupSearch();
+  setupSend();
   renderProducts();
-}
-
-document.addEventListener("DOMContentLoaded", renderAll);
+  renderCart();
+});
