@@ -231,3 +231,11 @@ small.muted{color:var(--muted);font-size:12px}
   display:block;
   background:#fff;
 }
+
+.pImgReal{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+}
